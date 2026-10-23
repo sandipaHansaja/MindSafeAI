@@ -102,7 +102,14 @@ if (fs.existsSync(dist)) {
   app.get(/^(?!\/api).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')));
 }
 
+// Development local server handling vs Vercel Serverless export
 const port = process.env.PORT || 3001;
-initDb()
-  .then(() => app.listen(port, () => console.log(`MindSafe API on :${port}`)))
-  .catch((e) => { console.error('Database connection failed:', e.code || e.message); process.exit(1); });
+if (process.env.NODE_ENV !== 'production') {
+  initDb()
+    .then(() => app.listen(port, () => console.log(`MindSafe API on :${port}`)))
+    .catch((e) => { console.error('Database connection failed:', e.code || e.message); process.exit(1); });
+} else {
+  initDb().catch(() => {});
+}
+
+export default app;
