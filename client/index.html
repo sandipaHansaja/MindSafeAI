@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <script>
+      // Pick the theme before first paint (no flash). Mirrors themeForTime() in src/theme.jsx.
+      (function () {
+        try {
+          var m = localStorage.getItem('mindsafe-theme');
+          var d = new Date(), h = d.getHours() + d.getMinutes() / 60;
+          var t = h >= 5 && h < 16 ? 'morning' : h >= 16 && h < 19.5 ? 'evening' : 'night';
+          document.documentElement.dataset.theme = m === 'morning' || m === 'evening' || m === 'night' ? m : t;
+        } catch (e) {}
+      })();
+    </script>
+    <title>MindSafe AI: a private space to write it out</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Sans+Sinhala:wght@400;500;600&family=Noto+Serif+Sinhala:wght@400;500&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
